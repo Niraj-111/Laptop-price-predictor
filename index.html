@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Laptop Price Predictor</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container py-4">
+
+  <h2 class="mb-4">💻 Laptop Price Predictor</h2>
+
+  <form action="/predict" method="post" class="row g-3">
+
+    <!-- Brand -->
+    <div class="col-md-4">
+      <label class="form-label">Brand</label>
+      <select name="company" class="form-select">
+        {% for c in companies %}<option>{{c}}</option>{% endfor %}
+      </select>
+    </div>
+
+    <!-- Type -->
+    <div class="col-md-4">
+      <label class="form-label">Type</label>
+      <select name="type" class="form-select">
+        {% for t in types %}<option>{{t}}</option>{% endfor %}
+      </select>
+    </div>
+
+    <!-- RAM -->
+    <div class="col-md-4">
+      <label class="form-label">RAM (GB)</label>
+      <select name="ram" class="form-select">
+        {% for r in rams %}<option>{{r}}</option>{% endfor %}
+      </select>
+    </div>
+
+    <!-- Weight -->
+    <div class="col-md-3">
+      <label class="form-label">Weight (kg)</label>
+      <input type="number" name="weight" step="0.01" class="form-control" required>
+    </div>
+
+    <!-- Touchscreen / IPS -->
+    <div class="col-md-3">
+      <label class="form-label">Touchscreen</label>
+      <select name="touchscreen" class="form-select"><option>No</option><option>Yes</option></select>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">IPS Display</label>
+      <select name="ips" class="form-select"><option>No</option><option>Yes</option></select>
+    </div>
+
+    <!-- Screen size -->
+    <div class="col-md-3">
+      <label class="form-label">Screen Size (inches)</label>
+      <input type="number" name="screen_size" step="0.1" value="13.3" class="form-control" required>
+    </div>
+
+    <!-- Resolution -->
+    <div class="col-md-4">
+      <label class="form-label">Resolution</label>
+      <select name="resolution" class="form-select">
+        {% for res in resolutions %}<option>{{res}}</option>{% endfor %}
+      </select>
+    </div>
+
+    <!-- CPU -->
+    <div class="col-md-4">
+      <label class="form-label">CPU Brand</label>
+      <select name="cpu" class="form-select">
+        {% for cpu in cpu_brands %}<option>{{cpu}}</option>{% endfor %}
+      </select>
+    </div>
+
+    <!-- Storage -->
+    <div class="col-md-2">
+      <label class="form-label">HDD (GB)</label>
+      <select name="hdd" class="form-select">{% for h in hdds %}<option>{{h}}</option>{% endfor %}</select>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">SSD (GB)</label>
+      <select name="ssd" class="form-select">{% for s in ssds %}<option>{{s}}</option>{% endfor %}</select>
+    </div>
+
+    <!-- GPU -->
+    <div class="col-md-4">
+      <label class="form-label">GPU Brand</label>
+      <select name="gpu" class="form-select">
+        {% for g in gpu_brands %}<option>{{g}}</option>{% endfor %}
+      </select>
+    </div>
+
+    <!-- OS -->
+    <div class="col-md-4">
+      <label class="form-label">Operating System</label>
+      <select name="os" class="form-select">
+        {% for o in os_options %}<option>{{o}}</option>{% endfor %}
+      </select>
+    </div>
+
+    <div class="col-12 mt-3">
+      <button type="submit" class="btn btn-primary w-100">Predict Price</button>
+    </div>
+  </form>
+</body>
+</html>
