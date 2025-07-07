@@ -3,4 +3,4 @@ A Machine Learning project that predicts laptop prices based on specifications s
 
 ## 🚀 Demo
 
-You can try the web app here 👉 [https://laptop-price-predictor-11-hlhb.onrender.com](#) 
+You can try the web app here 👉 [Render Demo](#) *(https://laptop-price-predictor-11-hlhb.onrender.com)*
