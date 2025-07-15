@@ -4,7 +4,7 @@ import pandas as pd
 import pickle
 import os
 
-# ── load persisted artefacts ────────────────────────────────────────────────
+
 PIPE_PATH = "pipe.pkl"
 DF_PATH   = "df.pkl"
 
@@ -14,12 +14,10 @@ if not (os.path.exists(PIPE_PATH) and os.path.exists(DF_PATH)):
 pipe = pickle.load(open(PIPE_PATH, "rb"))
 df   = pickle.load(open(DF_PATH,  "rb"))
 
-# ── Flask app ───────────────────────────────────────────────────────────────
+
 app = Flask(__name__)
 
-# --------------------------------------------------------------------------- #
-# Home page – form
-# --------------------------------------------------------------------------- #
+
 @app.route("/", methods=["GET"])
 def index():
     return render_template(
@@ -38,15 +36,13 @@ def index():
         ],
     )
 
-# --------------------------------------------------------------------------- #
-# Prediction endpoint
-# --------------------------------------------------------------------------- #
+
 @app.route("/predict", methods=["POST"])
 def predict():
     try:
-        f = request.form  # shortcut
+        f = request.form  
 
-        # categorical / numeric inputs
+       
         company     = f["company"]
         type_name   = f["type"]
         ram         = int(f["ram"])
@@ -61,11 +57,11 @@ def predict():
         gpu         = f["gpu"]
         os_name     = f["os"]
 
-        # PPI calculation
+        
         X_res, Y_res = map(int, res.split("x"))
         ppi = ((X_res**2 + Y_res**2) ** 0.5) / screen_size
 
-        # order MUST match training order
+        
         query = pd.DataFrame(
             [[company, type_name, ram, weight, touchscreen, ips, ppi,
               cpu, hdd, ssd, gpu, os_name]],
@@ -74,15 +70,15 @@ def predict():
         )
 
         log_price = pipe.predict(query)[0]
-        price = int(np.exp(log_price))         # reverse the np.log used in training
+        price = int(np.exp(log_price))         
 
         return render_template("result.html", price=price)
 
     except Exception as e:
-        # display neat error page
+        
         return render_template("result.html", price=None, error=str(e)), 500
 
 
-# ── Dev entry point ─────────────────────────────────────────────────────────
+
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
